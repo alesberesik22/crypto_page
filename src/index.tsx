@@ -4,12 +4,17 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import "antd/dist/antd.min.css";
 
+import { Provider } from "react-redux";
+import Store from "./components/store/Store";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <Router>
-    <App />
+    <Provider store={Store}>
+      <App />
+    </Provider>
   </Router>
 );
 

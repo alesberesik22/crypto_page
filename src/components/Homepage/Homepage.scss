@@ -2,8 +2,17 @@
   height: 123%;
   .page {
     flex: 0.8;
-    width: 80%;
+    width: 100%;
     padding: 20px;
     height: 100%;
+    .heading_cryptoCurrencies {
+      display: flex;
+      align-items: center;
+      // gap: 10rem;
+      justify-content: space-between;
+    }
+    .home_heading_container {
+      padding-top: 1rem;
+    }
   }
 }
