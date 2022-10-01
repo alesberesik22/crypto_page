@@ -3,5 +3,24 @@
     flex: 0.8;
     width: 100%;
     padding: 20px;
+    .card {
+      .news_card {
+        a {
+          text-decoration: none;
+          color: grey;
+        }
+        .card_description {
+          .news_image_container {
+            display: flex;
+            justify-content: space-between;
+
+            img {
+              width: 100px;
+              height: 100px;
+            }
+          }
+        }
+      }
+    }
   }
 }

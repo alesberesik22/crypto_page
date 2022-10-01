@@ -16,11 +16,6 @@ function Footer() {
           <Link to="/">Cryptoverse</Link> <br />
         </Space>
       </Typography.Title>
-      <Space>
-        <Link to="/">Home</Link>
-        <Link to="/exchanges">Exchanges</Link>
-        <Link to="/news">News</Link>
-      </Space>
     </div>
   );
 }
