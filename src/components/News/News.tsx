@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./News.scss";
 import { Select, Typography, Row, Col, Avatar, Card } from "antd";
 import moment from "moment";
 import { useGetNewsQuery } from "../services/CryptoNewsApi";
+import { useGetCryptoQuery } from "../services/Cryptoapi";
 
 const { Text, Title } = Typography;
 const { Option } = Select;
@@ -11,11 +12,12 @@ const demoImage =
   "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
 
 function News(props: any) {
+  const [category, setCategory] = useState("Cryptocurrency");
   const { data: cryptoNews, isFetching } = useGetNewsQuery({
-    newsCategory: "Cryptocurrency",
+    newsCategory: category,
     count: props.simplified ? 6 : 12,
   });
-  console.log(cryptoNews);
+  const { data: cryptoCategory } = useGetCryptoQuery(100);
 
   if (isFetching) {
     return <div>Loading</div>;
@@ -23,6 +25,34 @@ function News(props: any) {
   return (
     <div className="page">
       <Row gutter={[24, 24]}>
+        {!props.simplified && (
+          <Col span={24}>
+            <Select
+              style={{ width: "200px" }}
+              showSearch
+              className="select_news"
+              placeholder="Select a crypto category"
+              optionFilterProp="children"
+              onChange={(e) => {
+                console.log(e);
+                setCategory(e);
+              }}
+              filterOption={(input, option) =>
+                option!.children
+                  ?.toString()
+                  .toLowerCase()
+                  .indexOf(input.toLowerCase())! >= 0
+              }
+            >
+              <Option value="Cryptocurency">Cryptocurrency</Option>
+              {cryptoCategory?.data?.coins.map((cat: any, index: number) => (
+                <Option value={cat.name} key={index}>
+                  {cat.name}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+        )}
         {cryptoNews.value.map((news: any, index: any) => (
           <Col xs={24} sm={12} lg={8} key={index} className="card">
             <Card hoverable className="news_card">
@@ -55,10 +85,13 @@ function News(props: any) {
                       }
                       alt=""
                     />
-                    <Text>
-                      {moment(news.datePublished).startOf("ss").fromNow()}
+                    <Text className="provider_name">
+                      {news.provider[0]?.name}
                     </Text>
                   </div>
+                  <Text>
+                    {moment(news.datePublished).startOf("second").fromNow()}
+                  </Text>
                 </div>
               </a>
             </Card>
