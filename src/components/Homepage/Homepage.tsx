@@ -1,7 +1,7 @@
 import React from "react";
 import "./Homepage.scss";
 import millify from "millify";
-import { Typography, Row, Statistic, Col } from "antd";
+import { Typography, Row, Statistic, Col, Spin } from "antd";
 import { Link } from "react-router-dom";
 import { useGetCryptoQuery } from "../services/Cryptoapi";
 import Cryptocurrencies from "../Cryptocurrencies/Cryptocurrencies";
@@ -13,7 +13,12 @@ function Homepage() {
   const { data, isFetching } = useGetCryptoQuery(10);
   const globalStats = data?.data?.stats;
   if (isFetching === true) {
-    return <div>Loading</div>;
+    return (
+      <div className="loader">
+        {" "}
+        <Spin />
+      </div>
+    );
   }
   return (
     <div className="page">

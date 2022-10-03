@@ -4,7 +4,7 @@ import "./Cryptodetails.scss";
 import { useParams } from "react-router-dom";
 import millify from "millify";
 import HTMLReactParser from "html-react-parser";
-import { Col, Row, Typography, Select } from "antd";
+import { Col, Row, Typography, Select, Spin } from "antd";
 import {
   MoneyCollectOutlined,
   DollarCircleOutlined,
@@ -101,7 +101,11 @@ function Cryptodetails() {
   ];
 
   if (isFetching || historyFetching) {
-    return <div>Loading</div>;
+    return (
+      <div className="loader">
+        <Spin />
+      </div>
+    );
   }
 
   return (

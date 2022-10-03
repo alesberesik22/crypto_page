@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import millify from "millify";
 import { Link } from "react-router-dom";
-import { Row, Col, Input, Card } from "antd";
+import { Row, Col, Input, Card, Spin } from "antd";
 import "./Cryptocurrencies.scss";
 import { useGetCryptoQuery } from "../services/Cryptoapi";
 
@@ -23,7 +23,11 @@ function Cryptocurrencies(props: any) {
   }, [isFetching]);
 
   if (isFetching) {
-    return <div>Loading</div>;
+    return (
+      <div className="loader">
+        <Spin />
+      </div>
+    );
   }
 
   return (

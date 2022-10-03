@@ -12,11 +12,17 @@
       margin: 25px 0 30px 0;
     }
     .crypto_card_container {
-      .crypto_card{
+      .crypto_card {
         .crypto_image {
           width: 35px;
         }
       }
     }
   }
+}
+.loader {
+  height: 81vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

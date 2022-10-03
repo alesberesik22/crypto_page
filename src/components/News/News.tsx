@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./News.scss";
-import { Select, Typography, Row, Col, Avatar, Card } from "antd";
+import { Select, Typography, Row, Col, Avatar, Card, Spin } from "antd";
 import moment from "moment";
 import { useGetNewsQuery } from "../services/CryptoNewsApi";
 import { useGetCryptoQuery } from "../services/Cryptoapi";
@@ -20,7 +20,11 @@ function News(props: any) {
   const { data: cryptoCategory } = useGetCryptoQuery(100);
 
   if (isFetching) {
-    return <div>Loading</div>;
+    return (
+      <div className="loader">
+        <Spin />
+      </div>
+    );
   }
   return (
     <div className="page">
@@ -38,7 +42,7 @@ function News(props: any) {
                 setCategory(e);
               }}
               filterOption={(input, option) =>
-                option!.children
+                option!.items
                   ?.toString()
                   .toLowerCase()
                   .indexOf(input.toLowerCase())! >= 0
