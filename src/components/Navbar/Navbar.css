@@ -6,12 +6,9 @@
 .logo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 100%;
   padding-top: 1rem;
-}
-.logo span {
-  margin-left: 2rem;
 }
 .nav_container ul {
   margin-top: 2rem;

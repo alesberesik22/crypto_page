@@ -26,13 +26,13 @@ function Cryptodetails() {
   const [timePeriod, setTimePeriod] = useState("7d");
   const { coinID } = useParams();
   const { data, isFetching } = useGetCryptoDetailsQuery(coinID);
-  const { data: coinHistory } = useGetCryptoDetailsQuery({
-    coinID,
-    timePeriod,
-  });
+  const { data: coinHistory, isFetching: historyFetching } =
+    useGetCryptoHistoryQuery({
+      coinID,
+      timePeriod,
+    });
   const cryptoDetails = data?.data?.coin;
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
-  console.log(coinHistory);
 
   const stats = [
     {
@@ -100,7 +100,7 @@ function Cryptodetails() {
     },
   ];
 
-  if (isFetching === true) {
+  if (isFetching || historyFetching) {
     return <div>Loading</div>;
   }
 
@@ -120,10 +120,12 @@ function Cryptodetails() {
           defaultValue={"7d"}
           className="select_time_period"
           placeholder="Select time period"
-          onChange={(value) => setTimePeriod(value)}
+          onChange={(value) => {
+            setTimePeriod(value);
+          }}
         >
           {time.map((date, index) => (
-            <Option key={index}>{date}</Option>
+            <Option key={date}>{date}</Option>
           ))}
         </Select>
         <Linechart
